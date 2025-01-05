@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 import { useMadoiObject } from "./reactHelpers";
-import { madoiContext } from "../App";
 import { DrawingCanvas } from "./DrawingCanvas";
+import { madoiContext } from "../main";
 
 export function WhiteBoard(){
   const canvas = useRef<HTMLCanvasElement>(null!);
