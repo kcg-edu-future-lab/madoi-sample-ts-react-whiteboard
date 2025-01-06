@@ -3,7 +3,7 @@ import { useMadoiObject } from "./reactHelpers";
 import { DrawingCanvas } from "./DrawingCanvas";
 import { MadoiContext } from "../main";
 
-export function WhiteBoard(){
+export function Whiteboard(){
   const canvas = useRef<HTMLCanvasElement>(null!);
   const sizeInput = useRef<HTMLInputElement>(null!);
   const colorInput = useRef<HTMLInputElement>(null!);

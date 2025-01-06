@@ -1,6 +1,6 @@
 import './App.css'
-import { WhiteBoard } from './madoi/WhiteBoard';
+import { Whiteboard } from './madoi/Whiteboard';
 
 export default function App() {
-  return <WhiteBoard />;
+  return <Whiteboard />;
 }
