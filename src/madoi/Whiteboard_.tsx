@@ -1,13 +1,13 @@
 import { useContext, useEffect, useRef } from "react";
 import { useMadoiObject } from "./reactHelpers";
 import { DrawingCanvas } from "./DrawingCanvas";
-import { madoiContext } from "../main";
+import { MadoiContext } from "../main";
 
 export function WhiteBoard(){
   const canvas = useRef<HTMLCanvasElement>(null!);
   const sizeInput = useRef<HTMLInputElement>(null!);
   const colorInput = useRef<HTMLInputElement>(null!);
-  const madoi = useContext(madoiContext);
+  const madoi = useContext(MadoiContext);
   const dc = useMadoiObject(madoi, ()=>new DrawingCanvas(), false);
   useEffect(()=>{
     if(!dc || !canvas.current || !sizeInput.current || !colorInput.current) return;
