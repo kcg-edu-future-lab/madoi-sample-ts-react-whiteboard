@@ -1,14 +1,14 @@
-import { useContext, useEffect, useRef } from "react";
-import { useMadoiObject } from "./reactHelpers";
+import { useEffect, useRef } from "react";
 import { DrawingCanvas } from "./DrawingCanvas";
-import { MadoiContext } from "../main";
 
-export function Whiteboard(){
+interface Props{
+  canvas: DrawingCanvas | null;
+}
+export function Whiteboard({canvas: dc}: Props){
   const canvas = useRef<HTMLCanvasElement>(null!);
   const sizeInput = useRef<HTMLInputElement>(null!);
   const colorInput = useRef<HTMLInputElement>(null!);
-  const madoi = useContext(MadoiContext);
-  const dc = useMadoiObject(madoi, ()=>new DrawingCanvas(), false);
+
   useEffect(()=>{
     if(!dc || !canvas.current || !sizeInput.current || !colorInput.current) return;
     const detach = dc.attach(canvas.current, sizeInput.current, colorInput.current);
