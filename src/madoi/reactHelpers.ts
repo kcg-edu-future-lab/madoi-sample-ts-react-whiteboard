@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Madoi } from "./madoi";
 
-export function useMadoiObject<T>(madoi: Madoi | null, factory: ()=>T, rerenderOnStateChange = true): T | null {
+export function useMadoiObject<T>(madoi: Madoi, factory: ()=>T, rerenderOnStateChange = true): T | null {
   const value = useRef<T>(null!);
   const [_state, setState] = useState<any>();
 
   useEffect(()=>{
-    if(madoi === null || value.current !== null) return;
+    if(value.current !== null) return;
     const obj = factory() as any;
     value.current = obj;
     let getStateMethod = null;
