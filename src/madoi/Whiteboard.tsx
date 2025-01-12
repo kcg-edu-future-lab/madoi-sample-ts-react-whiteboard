@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { ChangeEventHandler, useEffect, useRef } from "react";
 import { DrawingCanvas } from "./DrawingCanvas";
 
 interface Props{
@@ -6,12 +6,15 @@ interface Props{
 }
 export function Whiteboard({canvas: dc}: Props){
   const canvas = useRef<HTMLCanvasElement>(null!);
-  const sizeInput = useRef<HTMLInputElement>(null!);
-  const colorInput = useRef<HTMLInputElement>(null!);
-
+  const onChangeSize: ChangeEventHandler<HTMLInputElement> = e=>{
+    dc?.setSize(parseInt(e.target.value));
+  };
+  const onChangeColor: ChangeEventHandler<HTMLInputElement> = e=>{
+    dc?.setColor(e.target.value);
+  };
   useEffect(()=>{
-    if(!dc || !canvas.current || !sizeInput.current || !colorInput.current) return;
-    const detach = dc.attach(canvas.current, sizeInput.current, colorInput.current);
+    if(!dc || !canvas.current) return;
+    const detach = dc.attach(canvas.current);
     return ()=>{
         detach();
     };
@@ -19,8 +22,8 @@ export function Whiteboard({canvas: dc}: Props){
 
   return <>
     <div>
-      Size:  <input ref={sizeInput} type="number" defaultValue={2} min={1} max={10} step={1} required></input>
-      Color: <input ref={colorInput} type="color"></input>
+      Size:  <input onChange={onChangeSize} type="number" defaultValue={2} min={1} max={10} step={1} required></input>
+      Color: <input onChange={onChangeColor} type="color"></input>
     </div>
     <canvas ref={canvas} width={640} height={480}></canvas>
   </>;
