@@ -96,18 +96,6 @@ export class DrawingCanvas{
         this.ctx.stroke();
     }
 
-    @Share({maxLog: 100})
-    draw(prevX: number, prevY: number, x: number, y: number, size: number, color: string) {
-        if(this.loading){
-            // 画像がロード中の場合は描画を後回しにする
-            this.pendingDrawings.push({
-                prevX, prevY, x, y, size, color
-            });
-        } else if(this.ctx){
-            this.doDraw(prevX, prevY, x, y, size, color);
-        }
-    }
-
     setSize(size: number){
         this.size = size;
     }
@@ -139,6 +127,18 @@ export class DrawingCanvas{
         this.canvas = null;
     }
   
+    @Share({maxLog: 100})
+    draw(prevX: number, prevY: number, x: number, y: number, size: number, color: string) {
+        if(this.loading){
+            // 画像がロード中の場合は描画を後回しにする
+            this.pendingDrawings.push({
+                prevX, prevY, x, y, size, color
+            });
+        } else if(this.ctx){
+            this.doDraw(prevX, prevY, x, y, size, color);
+        }
+    }
+
     @GetState({maxInterval: 10000, maxUpdates: 100})
     getState(): string {
         return this.canvas?.toDataURL("image/png") || "";
