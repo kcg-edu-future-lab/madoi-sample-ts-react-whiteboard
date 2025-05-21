@@ -1,5 +1,5 @@
 import { ChangeEventHandler, useEffect, useRef } from "react";
-import { DrawingCanvas } from "./DrawingCanvas";
+import { DrawingCanvas } from "./model/DrawingCanvas";
 
 interface Props{
   canvas: DrawingCanvas | null;
