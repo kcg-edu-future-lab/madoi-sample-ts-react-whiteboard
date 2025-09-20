@@ -1,6 +1,7 @@
-import { GetState, SetState, Share, ShareClass, TypedEventTarget } from "madoi-client";
+import { TypedCustomEventTarget } from "tcet";
+import { GetState, SetState, Share, ShareClass } from "madoi-client";
 
-class Dragging extends TypedEventTarget<Dragging,
+class Dragging extends TypedCustomEventTarget<Dragging,
     {dragging: {prevX: number, prevY: number, x: number, y: number, button: number}}>{
     private _dragging: boolean = false;
     private button: number = 0;
