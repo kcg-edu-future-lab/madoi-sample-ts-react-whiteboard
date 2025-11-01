@@ -1,5 +1,5 @@
 import { TypedCustomEventTarget } from "tcet";
-import { GetState, SetState, Share, ShareClass } from "madoi-client";
+import { ChangeState, ClassName, Distributed, GetState, SetState } from "madoi-client";
 
 class Dragging extends TypedCustomEventTarget<Dragging,
     {dragging: {prevX: number, prevY: number, x: number, y: number, button: number}}>{
@@ -54,7 +54,7 @@ interface DrawParam{
     size: number, color: string
 }
 
-@ShareClass({className: "DrawingCanvas"})
+@ClassName("DrawingCanvas")
 export class DrawingCanvas{
     private canvas: HTMLCanvasElement | null = null;
     private ctx: CanvasRenderingContext2D | null = null;
@@ -128,7 +128,8 @@ export class DrawingCanvas{
         this.canvas = null;
     }
   
-    @Share({maxLog: 100})
+    @Distributed()
+    @ChangeState()
     draw(prevX: number, prevY: number, x: number, y: number, size: number, color: string) {
         if(this.loading){
             // 画像がロード中の場合は描画を後回しにする
@@ -140,7 +141,7 @@ export class DrawingCanvas{
         }
     }
 
-    @GetState({maxInterval: 10000, maxUpdates: 100})
+    @GetState({maxInterval: 10000})
     getState(): string {
         return this.canvas?.toDataURL("image/png") || "";
     }
